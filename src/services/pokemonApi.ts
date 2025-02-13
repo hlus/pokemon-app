@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { PokemonListResponse, Pokemon } from '../types/pokemon';
+import { PokemonListResponse, Pokemon, PokemonDetails, PokemonApiResponse } from '../types/pokemon';
 
 const getIdFromUrl = (url: string): number => {
   const matches = url.match(/\/(\d+)\/?$/);
@@ -29,7 +29,27 @@ export const pokemonApi = createApi({
       query: () => 'pokemon?limit=151',
       transformResponse: (response: PokemonListResponse) => response.results.map(transformPokemonResponse),
     }),
+    getPokemonDetails: builder.query<PokemonDetails, string>({
+      query: (name) => `pokemon/${name}`,
+      transformResponse: (response: PokemonApiResponse): PokemonDetails => ({
+        id: response.id,
+        name: response.name,
+        number: response.id.toString().padStart(3, '0'),
+        image: `https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/${response.id.toString().padStart(3, '0')}.png`,
+        types: response.types.map(t => t.type.name),
+        stats: {
+          hp: response.stats[0].base_stat,
+          attack: response.stats[1].base_stat,
+          defense: response.stats[2].base_stat,
+          'special-attack': response.stats[3].base_stat,
+          'special-defense': response.stats[4].base_stat,
+          speed: response.stats[5].base_stat,
+        },
+        height: response.height / 10,
+        weight: response.weight / 10,
+      }),
+    }),
   }),
 });
 
-export const { useGetPokemonListQuery } = pokemonApi;
+export const { useGetPokemonListQuery, useGetPokemonDetailsQuery } = pokemonApi;

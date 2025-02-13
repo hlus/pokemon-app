@@ -2,8 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { TextField, Container, Grid, Box, CircularProgress } from '@mui/material';
 
 import { Pokemon } from '../types/pokemon';
-import { PokemonCard } from './PokemonCard';
 import { useDebounce } from '../hooks/useDebounce';
+import { PokemonCard } from '../components/PokemonCard';
 import { useGetPokemonListQuery } from '../services/pokemonApi';
 
 export const PokemonSearch: React.FC = () => {
@@ -25,7 +25,7 @@ export const PokemonSearch: React.FC = () => {
   return (
     <Box sx={{ bgcolor: '#ffffff', flex: 1, width: '100%' }}>
       <Container maxWidth="lg" sx={{ pt: 4, pb: 8 }}>
-        <Box sx={{ position: 'sticky', top: 0, bgcolor: '#ffffff', py: 2, zIndex: 1 }}>
+        <Box sx={{ position: 'sticky', top: 0, bgcolor: '#ffffff', zIndex: 1 }}>
           <TextField
             fullWidth
             label="Search Pokémon"
@@ -46,7 +46,7 @@ export const PokemonSearch: React.FC = () => {
             <CircularProgress />
           </Box>
         ) : (
-          <Grid container spacing={3}>
+          <Grid container spacing={3} sx={{ pt: 3 }}>
             {filteredPokemon.map(renderPokemonCard)}
           </Grid>
         )}
