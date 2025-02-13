@@ -12,11 +12,7 @@ export const PokemonDetails: React.FC = () => {
   const navigate = useNavigate();
   const { data: pokemon, isLoading } = useGetPokemonDetailsQuery(name ?? '');
 
-  const renderStatCard = ([stat, value]: [string, number]) => (
-    <Grid item xs={6} key={stat}>
-      <StatCard stat={stat} value={value} />
-    </Grid>
-  );
+  const renderStatCard = ([stat, value]: [string, number]) => <StatCard key={stat} stat={stat} value={value} />;
 
   const goBack = () => navigate(-1);
 
