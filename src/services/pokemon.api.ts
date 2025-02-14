@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { SpeciesDTO } from './dto/species.dto';
-import { PokemonDetailsDTO } from './dto/pokemon.dto';
-import { PokemonListDTO } from './dto/pokemon-list.dto';
-import { EvolutionChainDTO } from './dto/evolution.chain.dto';
-import { PokemonAbilitiesDTO } from './dto/pokemon-abilities.dto';
+import { SpeciesDTO } from '../models/species.dto';
+import { PokemonDetailsDTO } from '../models/pokemon.dto';
+import { PokemonListDTO } from '../models/pokemon-list.dto';
+import { EvolutionChainDTO } from '../models/evolution.chain.dto';
 import { parsePokemonDTO, Pokemon } from '../models/pokemon.model';
+import { PokemonAbilitiesDTO } from '../models/pokemon-abilities.dto';
 import { parsePokemonDetailsDto, PokemonDetails } from '../models/pokemon-details.model';
 
 export const pokemonApi = createApi({
@@ -29,7 +29,7 @@ export const pokemonApi = createApi({
         const { data: speciesData } = await axios.get<SpeciesDTO>(response.species.url);
         const { data: evolutionChain } = await axios.get<EvolutionChainDTO>(speciesData.evolution_chain.url);
 
-        return parsePokemonDetailsDto({ ...response, abilitiesData: abilitiesData.map(({data}) => data), chain: evolutionChain.chain });
+        return parsePokemonDetailsDto({ ...response, abilitiesData: abilitiesData.map(({ data }) => data), chain: evolutionChain.chain });
       },
     }),
   }),

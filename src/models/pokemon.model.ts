@@ -1,5 +1,5 @@
+import { PokemonItemDTO } from './pokemon-list.dto';
 import { getIdFromUrl } from '../utils/get-id-from-url';
-import { PokemonItemDTO } from '../services/dto/pokemon-list.dto';
 
 export interface Pokemon {
   id: number;

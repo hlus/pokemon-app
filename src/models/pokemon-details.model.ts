@@ -1,7 +1,7 @@
 import { parsePokemonDTO, Pokemon } from './pokemon.model';
-import { EvolutionChainDTO } from '../services/dto/evolution.chain.dto';
-import { ExtendedPokemonDetailsDTO } from '../services/dto/pokemon.dto';
-import { PokemonAbilitiesDTO } from '../services/dto/pokemon-abilities.dto';
+import { EvolutionChainDTO } from './evolution.chain.dto';
+import { ExtendedPokemonDetailsDTO } from './pokemon.dto';
+import { PokemonAbilitiesDTO } from './pokemon-abilities.dto';
 
 export interface Ability {
   name: string;
