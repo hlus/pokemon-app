@@ -1,7 +1,8 @@
 import React from 'react';
+import Grid from '@mui/material/Grid2';
 import { useParams, useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Container, Typography, Grid, Paper, IconButton, CircularProgress } from '@mui/material';
+import { Box, Container, Typography, Paper, IconButton, CircularProgress } from '@mui/material';
 
 import { getTypeColor } from '../utils/colors';
 import { StatCard } from '../components/StatCard';
@@ -35,13 +36,13 @@ export const PokemonDetails: React.FC = () => {
           </IconButton>
 
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{xs: 12, md: 6}}>
               <Paper elevation={2} sx={{ p: 4, height: '100%' }}>
                 <img src={pokemon.image} alt={pokemon.name} style={{ width: '100%', height: 'auto', maxHeight: 400, objectFit: 'contain' }} />
               </Paper>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid size={{xs: 12, md: 6}}>
               <Box>
                 <Typography variant="h4" sx={{ textTransform: 'capitalize', mb: 2 }}>
                   {pokemon.name}

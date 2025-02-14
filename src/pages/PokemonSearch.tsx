@@ -1,5 +1,6 @@
+import Grid from '@mui/material/Grid2';
 import React, { useState, useMemo } from 'react';
-import { TextField, Container, Grid, Box, CircularProgress } from '@mui/material';
+import { TextField, Container, Box, CircularProgress } from '@mui/material';
 
 import { Pokemon } from '../types/pokemon';
 import { useDebounce } from '../hooks/useDebounce';
@@ -17,7 +18,7 @@ export const PokemonSearch: React.FC = () => {
   );
 
   const renderPokemonCard = (pokemon: Pokemon) => (
-    <Grid item xs={12} sm={6} md={4} key={pokemon.id}>
+    <Grid size={{ xs: 12, sm: 6, md: 4 }} key={pokemon.id}>
       <PokemonCard pokemon={pokemon} />
     </Grid>
   );
