@@ -24,7 +24,7 @@ export interface PokemonDetails {
 const buildFullImageUrl = (id: number) =>
   `https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/${id.toString().padStart(3, '0')}.png`;
 
-const getEvolvesToChain = (chain: EvolutionChainDTO['chain']): Pokemon[] => {
+const getAllEvolutions = (chain: EvolutionChainDTO['chain']): Pokemon[] => {
   const result: Pokemon[] = [parsePokemonDTO(chain.species)];
 
   const recurse = (evolvesTo: EvolutionChainDTO['chain']['evolves_to'][0]) => {
@@ -60,7 +60,7 @@ export const parsePokemonDetailsDto = ({
 }: ExtendedPokemonDetailsDTO): PokemonDetails => {
   const abilities = abilitiesData.map(parseAbility);
 
-  const evolution = getEvolvesToChain(chain);
+  const evolution = getAllEvolutions(chain);
 
   return {
     id: id,
