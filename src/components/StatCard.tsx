@@ -1,5 +1,6 @@
 import React from 'react';
 import Grid from '@mui/material/Grid2';
+import { styled } from '@mui/material/styles';
 import { Typography, Paper } from '@mui/material';
 
 interface StatCardProps {
@@ -9,11 +10,19 @@ interface StatCardProps {
 
 export const StatCard: React.FC<StatCardProps> = ({ stat, value }) => (
   <Grid size={{ xs: 6 }}>
-    <Paper sx={{ p: 2 }}>
-      <Typography variant="body2" color="text.secondary" sx={{ textTransform: 'capitalize' }}>
+    <StatContainer>
+      <StatName variant="body2" color="text.secondary">
         {stat.replace('-', ' ')}
-      </Typography>
+      </StatName>
       <Typography variant="h6">{value}</Typography>
-    </Paper>
+    </StatContainer>
   </Grid>
 );
+
+const StatContainer = styled(Paper)({
+  padding: 16,
+});
+
+const StatName = styled(Typography)({
+  textTransform: 'capitalize',
+});

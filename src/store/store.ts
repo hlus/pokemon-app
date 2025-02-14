@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { pokemonApi } from '../services/pokemonApi';
+import { pokemonApi } from '../services/pokemon.api';
 
 export const store = configureStore({
   reducer: {

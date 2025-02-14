@@ -4,8 +4,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { theme } from './theme/theme';
 import { store } from './store/store';
-import { PokemonSearch } from './pages/PokemonSearch';
-import { PokemonDetails } from './pages/PokemonDetails';
+import { PokemonSearch } from './pages/PokemonSearch.page';
+import { PokemonDetails } from './pages/PokemonDetails.page';
 
 const App: React.FC = () => (
   <Provider store={store}>
