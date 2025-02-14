@@ -31,10 +31,10 @@ describe('PokemonDetails', () => {
     abilities: [
       {
         name: 'overgrow',
-        text: 'Powers up Grass-type moves when the Pokémon is in trouble.'
-      }
+        text: 'Powers up Grass-type moves when the Pokémon is in trouble.',
+      },
     ],
-    evolution: []
+    evolution: [],
   };
 
   beforeEach(() => {
@@ -46,17 +46,10 @@ describe('PokemonDetails', () => {
       reducer: {
         [pokemonApi.reducerPath]: pokemonApi.reducer,
       },
-      middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(pokemonApi.middleware),
+      middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(pokemonApi.middleware),
     });
 
-    store.dispatch(
-      pokemonApi.util.upsertQueryData(
-        'getPokemonDetails',
-        'bulbasaur',
-        mockPokemonData
-      )
-    );
+    store.dispatch(pokemonApi.util.upsertQueryData('getPokemonDetails', 'bulbasaur', mockPokemonData));
 
     return store;
   };
@@ -83,26 +76,24 @@ describe('PokemonDetails', () => {
   it('renders pokemon details after loading', async () => {
     renderDetails();
 
-    const pokemonName = await screen.findByText('bulbasaur', {exact: false});
-    
+    const pokemonName = await screen.findByText('bulbasaur');
+
     expect(pokemonName).toBeInTheDocument();
     expect(screen.getByText('Types')).toBeInTheDocument();
     expect(screen.getByText('grass')).toBeInTheDocument();
     expect(screen.getByText('poison')).toBeInTheDocument();
   });
 
-  // it('displays stats section after loading', async () => {
-  //   renderDetails();
+  it('displays stats section after loading', async () => {
+    renderDetails();
 
-  //   // Wait for stats heading to appear
-  //   const statsHeading = await screen.findByText('Stats');
-  //   expect(statsHeading).toBeInTheDocument();
+    const statsHeading = await screen.findByText('Stats');
+    expect(statsHeading).toBeInTheDocument();
 
-  //   // Check for stat values
-  //   const hpValue = await screen.findByText('45');
-  //   const attackValue = await screen.findByText('49');
-    
-  //   expect(hpValue).toBeInTheDocument();
-  //   expect(attackValue).toBeInTheDocument();
-  // });
+    const hpValue = await screen.findByText('45');
+    const attackValue = await screen.findByText('49');
+
+    expect(hpValue).toBeInTheDocument();
+    expect(attackValue).toBeInTheDocument();
+  });
 });
