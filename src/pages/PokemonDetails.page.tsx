@@ -47,7 +47,7 @@ export const PokemonDetails: React.FC = () => {
     <DetailsWrapper>
       <DetailsContainer maxWidth="lg">
         <ContentBox>
-          <BackButton onClick={goBack}>
+          <BackButton onClick={goBack} aria-label="back">
             <ArrowBackIcon />
           </BackButton>
 
