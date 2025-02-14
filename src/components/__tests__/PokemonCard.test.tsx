@@ -1,13 +1,12 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { PokemonCard } from '../PokemonCard';
 
 const mockNavigate = vi.fn();
 
-vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual('react-router-dom');
+vi.mock('react-router-dom', async (importOriginal) => {
+  const actual: object = await importOriginal();
   return {
     ...actual,
     useNavigate: () => mockNavigate,
@@ -19,10 +18,17 @@ describe('PokemonCard', () => {
     id: 1,
     name: 'bulbasaur',
     image: 'pokemon-image.png',
+    number: '001',
+    types: ['grass'],
+    stats: {},
+    height: 7,
+    weight: 69,
+    abilities: [],
+    evolution: [],
   };
 
   const renderCard = (showBorder = false) => {
-    render(
+    return render(
       <BrowserRouter>
         <PokemonCard pokemon={mockPokemon} showBorder={showBorder} />
       </BrowserRouter>
@@ -39,14 +45,14 @@ describe('PokemonCard', () => {
 
   it('navigates to pokemon details on click', async () => {
     renderCard();
-    const card = screen.getByTestId('pokemon-card');
-    await userEvent.click(card);
+    const card = screen.getByTestId('pokemon-card-bulbasaur');
+    fireEvent.click(card);
     expect(mockNavigate).toHaveBeenCalledWith('/pokemon/bulbasaur');
   });
 
   it('shows border when showBorder prop is true', () => {
     renderCard(true);
-    const card = screen.getByTestId('pokemon-card');
+    const card = screen.getByTestId('pokemon-card-bulbasaur');
     expect(card).toHaveStyle({ border: '2px solid #30a7d7' });
   });
 }); 

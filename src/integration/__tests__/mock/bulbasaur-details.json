@@ -1,0 +1,20 @@
+{
+  "id": 1,
+  "name": "bulbasaur",
+  "image": "bulbasaur.png",
+  "number": "001",
+  "types": ["grass", "poison"],
+  "stats": {
+    "hp": 45,
+    "attack": 49
+  },
+  "height": 7,
+  "weight": 69,
+  "abilities": [
+    {
+      "name": "overgrow",
+      "text": "Powers up Grass-type moves when the Pokémon is in trouble."
+    }
+  ],
+  "evolution": []
+}

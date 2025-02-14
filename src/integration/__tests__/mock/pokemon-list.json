@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "name": "bulbasaur",
+    "image": "bulbasaur.png"
+  },
+  {
+    "id": 2,
+    "name": "ivysaur",
+    "image": "ivysaur.png"
+  }
+]
