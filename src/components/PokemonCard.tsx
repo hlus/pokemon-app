@@ -8,16 +8,17 @@ import { Pokemon } from '../models/pokemon.model';
 
 interface Props {
   pokemon: Pokemon;
+  showBorder?: boolean;
 }
 
-export const PokemonCard: React.FC<Props> = ({ pokemon }) => {
+export const PokemonCard: React.FC<Props> = ({ pokemon, showBorder }) => {
   const navigate = useNavigate();
 
   const onCardClick = () => navigate(`/pokemon/${pokemon.name}`);
 
   return (
     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-      <PokemonCardContainer onClick={onCardClick}>
+      <PokemonCardContainer showBorder={showBorder} onClick={onCardClick}>
         <PokemonImage component="img" image={pokemon.image} alt={pokemon.name} />
         <CardContent>
           <PokemonName gutterBottom variant="h6" component="div">
@@ -32,15 +33,16 @@ export const PokemonCard: React.FC<Props> = ({ pokemon }) => {
   );
 };
 
-const PokemonCardContainer = styled(Card)({
+const PokemonCardContainer = styled(Card)<{ showBorder?: boolean }>(({ showBorder }) => ({
   height: '100%',
   cursor: 'pointer',
   transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+  border: showBorder ? '2px solid #30a7d7' : 'none',
   '&:hover': {
     transform: 'translateY(-4px)',
     boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
   },
-});
+}));
 
 const PokemonName = styled(Typography)({
   textTransform: 'capitalize',

@@ -7,6 +7,8 @@ import { Box, Container, Typography, Paper, IconButton, CircularProgress } from 
 
 import { getTypeColor } from '../utils/colors';
 import { StatCard } from '../components/StatCard';
+import { Pokemon } from '../models/pokemon.model';
+import { PokemonCard } from '../components/PokemonCard';
 import { useGetPokemonDetailsQuery } from '../services/pokemon.api';
 
 export const PokemonDetails: React.FC = () => {
@@ -20,6 +22,10 @@ export const PokemonDetails: React.FC = () => {
     <TypeBadge key={type} variant="body2" $bgColor={getTypeColor(type)}>
       {type}
     </TypeBadge>
+  );
+
+  const renderPokemonCard = (pokemonEvolution: Pokemon) => (
+    <PokemonCard key={pokemonEvolution.id} showBorder={pokemonEvolution.id === pokemon?.id} pokemon={pokemonEvolution} />
   );
 
   const renderStat = ([stat, value]: [string, number]) => <StatCard key={stat} stat={stat} value={value} />;
@@ -53,7 +59,9 @@ export const PokemonDetails: React.FC = () => {
 
             <Grid size={{ xs: 12, md: 6 }}>
               <InfoSection>
-                <PokemonName variant="h4">{pokemon.name}</PokemonName>
+                <PokemonName variant="h4" color="text.primary">
+                  {pokemon.name}
+                </PokemonName>
                 <PokemonNumber variant="body1" color="text.secondary">
                   #{pokemon.number}
                 </PokemonNumber>
@@ -76,6 +84,15 @@ export const PokemonDetails: React.FC = () => {
                     <SectionTitle variant="h6">Stats</SectionTitle>
                     <Grid container spacing={2}>
                       {Object.entries(pokemon.stats).map(renderStat)}
+                    </Grid>
+                  </StatsSection>
+                )}
+
+                {pokemon.evolution && pokemon.evolution.length > 0 && (
+                  <StatsSection>
+                    <SectionTitle variant="h6">Evolution</SectionTitle>
+                    <Grid container spacing={2}>
+                      {pokemon.evolution.map(renderPokemonCard)}
                     </Grid>
                   </StatsSection>
                 )}
