@@ -15,27 +15,64 @@ vi.mock('react-router-dom', async () => {
   };
 });
 
-const createMockStore = () =>
-  configureStore({
-    reducer: {
-      [pokemonApi.reducerPath]: pokemonApi.reducer,
-    },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(pokemonApi.middleware),
-  });
-
 describe('PokemonDetails', () => {
+  const mockPokemonData = {
+    id: 1,
+    name: 'bulbasaur',
+    number: '001',
+    image: 'pokemon-image.png',
+    types: ['grass', 'poison'],
+    stats: {
+      hp: 45,
+      attack: 49,
+    },
+    height: 7,
+    weight: 69,
+    abilities: [
+      {
+        name: 'overgrow',
+        text: 'Powers up Grass-type moves when the Pokémon is in trouble.'
+      }
+    ],
+    evolution: []
+  };
+
   beforeEach(() => {
     (useParams as any).mockReturnValue({ name: 'bulbasaur' });
   });
 
-  const renderDetails = () => {
-    return render(
-      <Provider store={createMockStore()}>
-        <BrowserRouter>
-          <PokemonDetails />
-        </BrowserRouter>
-      </Provider>
+  const createTestStore = () => {
+    const store = configureStore({
+      reducer: {
+        [pokemonApi.reducerPath]: pokemonApi.reducer,
+      },
+      middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(pokemonApi.middleware),
+    });
+
+    store.dispatch(
+      pokemonApi.util.upsertQueryData(
+        'getPokemonDetails',
+        'bulbasaur',
+        mockPokemonData
+      )
     );
+
+    return store;
+  };
+
+  const renderDetails = () => {
+    const store = createTestStore();
+    return {
+      store,
+      ...render(
+        <Provider store={store}>
+          <BrowserRouter>
+            <PokemonDetails />
+          </BrowserRouter>
+        </Provider>
+      ),
+    };
   };
 
   it('shows loading state initially', () => {
@@ -43,18 +80,16 @@ describe('PokemonDetails', () => {
     expect(screen.getByRole('progressbar')).toBeInTheDocument();
   });
 
-  // it('renders pokemon details after loading', async () => {
-  //   renderDetails();
+  it('renders pokemon details after loading', async () => {
+    renderDetails();
 
-  //   // Wait for the pokemon name to appear
-  //   const pokemonName = await screen.findByText('bulbasaur');
-  //   expect(pokemonName).toBeInTheDocument();
-
-  //   // Check for other elements that should be present
-  //   expect(screen.getByText('Types')).toBeInTheDocument();
-  //   expect(screen.getByText('grass')).toBeInTheDocument();
-  //   expect(screen.getByText('poison')).toBeInTheDocument();
-  // });
+    const pokemonName = await screen.findByText('bulbasaur', {exact: false});
+    
+    expect(pokemonName).toBeInTheDocument();
+    expect(screen.getByText('Types')).toBeInTheDocument();
+    expect(screen.getByText('grass')).toBeInTheDocument();
+    expect(screen.getByText('poison')).toBeInTheDocument();
+  });
 
   // it('displays stats section after loading', async () => {
   //   renderDetails();
