@@ -1,5 +1,5 @@
 import { EvolutionChainDTO } from './evolution.chain.dto';
-import { EffectRow } from './pokemon-abilities.dto';
+import { PokemonAbilitiesDTO } from './pokemon-abilities.dto';
 
 export interface AbilityItemDTO {
   ability: { name: string; url: string };
@@ -21,6 +21,6 @@ export interface PokemonDetailsDTO {
 }
 
 export interface ExtendedPokemonDetailsDTO extends PokemonDetailsDTO {
-  effect_entries: EffectRow[];
+  abilitiesData: PokemonAbilitiesDTO[];
   chain: EvolutionChainDTO['chain'];
 }

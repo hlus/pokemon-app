@@ -3,7 +3,8 @@ import Grid from '@mui/material/Grid2';
 import { styled } from '@mui/material/styles';
 import { useParams, useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Container, Typography, Paper, IconButton, CircularProgress } from '@mui/material';
+import QuestionMarkIcon from '@mui/icons-material/HelpOutline';
+import { Box, Container, Typography, Paper, IconButton, CircularProgress, Tooltip } from '@mui/material';
 
 import { getTypeColor } from '../utils/colors';
 import { StatCard } from '../components/StatCard';
@@ -76,7 +77,14 @@ export const PokemonDetails: React.FC = () => {
                   <AbilityValue>{pokemon.height} m</AbilityValue>
                   <AbilityTitle variant="h6">Weight</AbilityTitle>
                   <AbilityValue>{pokemon.weight} kg</AbilityValue>
-                  {pokemon.ability && <AbilityTitle variant="h6">{pokemon.ability.name}</AbilityTitle>}
+                  {pokemon.abilities.map((ability) => (
+                    <AbilityInfo key={ability.name}>
+                      <AbilityTitle variant="h6">{ability.name}</AbilityTitle>
+                      <Tooltip title={ability.text} arrow>
+                        <QuestionMarkIcon sx={{ color: 'white' }} />
+                      </Tooltip>
+                    </AbilityInfo>
+                  ))}
                 </AbilityInfoCard>
 
                 {pokemon.stats && (
@@ -193,4 +201,10 @@ const AbilityTitle = styled(Typography)({
 });
 const AbilityValue = styled(Typography)({
   color: '#212121',
+});
+
+const AbilityInfo = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 8,
 });

@@ -1,15 +1,18 @@
 import { parsePokemonDTO, Pokemon } from './pokemon.model';
 import { EvolutionChainDTO } from '../services/dto/evolution.chain.dto';
 import { ExtendedPokemonDetailsDTO } from '../services/dto/pokemon.dto';
+import { PokemonAbilitiesDTO } from '../services/dto/pokemon-abilities.dto';
+
+export interface Ability {
+  name: string;
+  text: string;
+}
 
 export interface PokemonDetails {
   id: number;
   name: string;
   image: string;
-  ability: {
-    name: string;
-    text: string;
-  } | null;
+  abilities: Ability[];
   evolution: Pokemon[];
   number: string;
   stats: Record<string, number>;
@@ -39,33 +42,30 @@ const getEvolvesToChain = (chain: EvolutionChainDTO['chain']): Pokemon[] => {
   return result;
 };
 
+const parseAbility = (ability: PokemonAbilitiesDTO) => {
+  const entry = ability.effect_entries.find((entry) => entry.language.name === 'en');
+
+  return { name: ability.name, text: entry?.effect || '' };
+};
+
 export const parsePokemonDetailsDto = ({
   id,
   name,
   types,
-  abilities,
   stats,
   height,
   weight,
-  effect_entries,
+  abilitiesData,
   chain,
 }: ExtendedPokemonDetailsDTO): PokemonDetails => {
-  const abilityNotHidden = abilities.find((a) => !a.is_hidden)?.ability;
-
-  let ability = null;
-  if (abilityNotHidden) {
-    const entry = effect_entries.find((entry) => entry.language.name === 'en');
-    if (entry) {
-      ability = { name: abilityNotHidden.name, text: entry.effect };
-    }
-  }
+  const abilities = abilitiesData.map(parseAbility);
 
   const evolution = getEvolvesToChain(chain);
 
   return {
     id: id,
     name: name,
-    ability,
+    abilities,
     evolution,
     number: id.toString().padStart(3, '0'),
     image: buildFullImageUrl(id),

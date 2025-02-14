@@ -20,20 +20,16 @@ export const pokemonApi = createApi({
     getPokemonDetails: builder.query<PokemonDetails, string>({
       query: (name) => `pokemon/${name}`,
       transformResponse: async (response: PokemonDetailsDTO) => {
-        const abilityNotHidden = response.abilities.find((a) => !a.is_hidden)?.ability;
+        const notHiddenAbilities = response.abilities.filter((a) => !a.is_hidden);
 
-        // Get ability text
-        let abilityData: PokemonAbilitiesDTO = { effect_entries: [], flavor_text_entries: [] };
-        if (abilityNotHidden) {
-          const { data } = await axios.get<PokemonAbilitiesDTO>(abilityNotHidden.url);
-          abilityData = data;
-        }
+        // Get abilities and text meaning
+        const abilitiesData = await Promise.all(notHiddenAbilities.map((a) => axios.get<PokemonAbilitiesDTO>(a.ability.url)));
 
         // Get evolution data
         const { data: speciesData } = await axios.get<SpeciesDTO>(response.species.url);
         const { data: evolutionChain } = await axios.get<EvolutionChainDTO>(speciesData.evolution_chain.url);
 
-        return parsePokemonDetailsDto({ ...response, effect_entries: abilityData.effect_entries, chain: evolutionChain.chain });
+        return parsePokemonDetailsDto({ ...response, abilitiesData: abilitiesData.map(({data}) => data), chain: evolutionChain.chain });
       },
     }),
   }),

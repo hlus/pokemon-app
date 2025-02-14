@@ -20,6 +20,7 @@ export interface FlavorTextEntry {
 }
 
 export interface PokemonAbilitiesDTO {
+  name: string;
   effect_entries: EffectRow[];
   flavor_text_entries: FlavorTextEntry[];
 }
