@@ -63,6 +63,14 @@ export const PokemonDetails: React.FC = () => {
                   <TypesWrapper>{pokemon.types.map(renderType)}</TypesWrapper>
                 </TypesSection>
 
+                <AbilityInfoCard>
+                  <AbilityTitle variant="h6">Height</AbilityTitle>
+                  <AbilityValue>{pokemon.height} m</AbilityValue>
+                  <AbilityTitle variant="h6">Weight</AbilityTitle>
+                  <AbilityValue>{pokemon.weight} kg</AbilityValue>
+                  {pokemon.ability && <AbilityTitle variant="h6">{pokemon.ability.name}</AbilityTitle>}
+                </AbilityInfoCard>
+
                 {pokemon.stats && (
                   <StatsSection>
                     <SectionTitle variant="h6">Stats</SectionTitle>
@@ -156,3 +164,16 @@ const TypeBadge = styled(Typography)<{ $bgColor: string }>(({ $bgColor }) => ({
   borderRadius: 4,
   textTransform: 'capitalize',
 }));
+
+const AbilityInfoCard = styled(Paper)({
+  backgroundColor: '#30a7d7',
+  borderRadius: 8,
+  padding: 16,
+});
+
+const AbilityTitle = styled(Typography)({
+  color: 'white',
+});
+const AbilityValue = styled(Typography)({
+  color: '#212121',
+});

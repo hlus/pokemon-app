@@ -10,11 +10,13 @@ import { useGetPokemonListQuery } from '../services/pokemon.api';
 
 export const PokemonSearch: React.FC = () => {
   const [searchTerm, setSearchTerm] = React.useState('');
+
   const debouncedSearch = useDebounce(searchTerm);
   const { data: pokemonList = [], isLoading } = useGetPokemonListQuery();
 
   const filteredPokemon = React.useMemo(
-    () => (debouncedSearch ? pokemonList.filter((pokemon) => pokemon.name.toLowerCase().includes(debouncedSearch.toLowerCase())) : pokemonList),
+    () =>
+      debouncedSearch.trim() ? pokemonList.filter((pokemon) => pokemon.name.toLowerCase().includes(debouncedSearch.toLowerCase())) : pokemonList,
     [pokemonList, debouncedSearch]
   );
 
