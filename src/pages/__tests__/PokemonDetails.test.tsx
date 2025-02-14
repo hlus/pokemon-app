@@ -1,17 +1,17 @@
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { BrowserRouter, useParams } from 'react-router-dom';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { BrowserRouter } from 'react-router-dom';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
 import { PokemonDetails } from '../PokemonDetails.page';
 import { pokemonApi } from '../../services/pokemon.api';
 
-vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual('react-router-dom');
+vi.mock('react-router-dom', async (importOriginal) => {
+  const actual: object = await importOriginal();
   return {
     ...actual,
-    useParams: vi.fn(),
+    useParams: () => ({ name: 'bulbasaur' }),
   };
 });
 
@@ -36,10 +36,6 @@ describe('PokemonDetails', () => {
     ],
     evolution: [],
   };
-
-  beforeEach(() => {
-    (useParams as any).mockReturnValue({ name: 'bulbasaur' });
-  });
 
   const createTestStore = () => {
     const store = configureStore({
