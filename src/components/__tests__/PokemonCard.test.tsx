@@ -39,13 +39,14 @@ describe('PokemonCard', () => {
 
   it('navigates to pokemon details on click', async () => {
     renderCard();
-    await userEvent.click(screen.getByRole('button'));
+    const card = screen.getByTestId('pokemon-card');
+    await userEvent.click(card);
     expect(mockNavigate).toHaveBeenCalledWith('/pokemon/bulbasaur');
   });
 
   it('shows border when showBorder prop is true', () => {
     renderCard(true);
-    const card = screen.getByRole('button');
+    const card = screen.getByTestId('pokemon-card');
     expect(card).toHaveStyle({ border: '2px solid #30a7d7' });
   });
 }); 

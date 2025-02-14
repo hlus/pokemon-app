@@ -1,5 +1,6 @@
 import { renderHook, act } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+
 import { useDebounce } from '../useDebounce';
 
 interface Props {
@@ -21,10 +22,7 @@ describe('useDebounce', () => {
   });
 
   it('debounces value changes', () => {
-    const { result, rerender } = renderHook<string, Props>(
-      ({ value }) => useDebounce(value, 500),
-      { initialProps: { value: 'initial' } }
-    );
+    const { result, rerender } = renderHook<string, Props>(({ value }) => useDebounce(value, 500), { initialProps: { value: 'initial' } });
 
     rerender({ value: 'changed' });
     expect(result.current).toBe('initial');
@@ -37,19 +35,16 @@ describe('useDebounce', () => {
   });
 
   it('cancels previous timeout on new value', () => {
-    const { result, rerender } = renderHook<string, Props>(
-      ({ value }) => useDebounce(value, 500),
-      { initialProps: { value: 'initial' } }
-    );
+    const { result, rerender } = renderHook<string, Props>(({ value }) => useDebounce(value, 500), { initialProps: { value: 'initial' } });
 
     rerender({ value: 'changed1' });
-    
+
     act(() => {
       vi.advanceTimersByTime(250);
     });
-    
+
     rerender({ value: 'changed2' });
-    
+
     act(() => {
       vi.advanceTimersByTime(250);
     });
@@ -62,4 +57,4 @@ describe('useDebounce', () => {
 
     expect(result.current).toBe('changed2');
   });
-}); 
+});

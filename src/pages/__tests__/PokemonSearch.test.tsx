@@ -1,11 +1,12 @@
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
+import { describe, it, expect } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
-import { PokemonSearch } from '../PokemonSearch';
-import { pokemonApi } from '../../services/pokemonApi';
+import userEvent from '@testing-library/user-event';
+import { render, screen, waitFor } from '@testing-library/react';
+
+import { PokemonSearch } from '../PokemonSearch.page';
+import { pokemonApi } from '../../services/pokemon.api';
 
 const createMockStore = () =>
   configureStore({
@@ -36,7 +37,7 @@ describe('PokemonSearch', () => {
     const searchInput = screen.getByPlaceholderText('Enter pokemon name...');
 
     await userEvent.type(searchInput, 'bulb');
-    
+
     await waitFor(() => {
       expect(screen.getByText('bulbasaur')).toBeInTheDocument();
       expect(screen.queryByText('ivysaur')).not.toBeInTheDocument();
@@ -47,4 +48,4 @@ describe('PokemonSearch', () => {
     renderSearch();
     expect(screen.getByRole('progressbar')).toBeInTheDocument();
   });
-}); 
+});

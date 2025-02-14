@@ -1,23 +1,22 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 export const handlers = [
-  rest.get('https://pokeapi.co/api/v2/pokemon', (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
+  http.get('https://pokeapi.co/api/v2/pokemon', () => {
+    return HttpResponse.json(
+      {
         count: 2,
         results: [
           { name: 'bulbasaur', url: 'https://pokeapi.co/api/v2/pokemon/1/' },
           { name: 'ivysaur', url: 'https://pokeapi.co/api/v2/pokemon/2/' },
         ],
-      })
+      },
+      { status: 200 }
     );
   }),
 
-  rest.get('https://pokeapi.co/api/v2/pokemon/bulbasaur', (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
+  http.get('https://pokeapi.co/api/v2/pokemon/bulbasaur', () => {
+    return HttpResponse.json(
+      {
         id: 1,
         name: 'bulbasaur',
         types: [{ type: { name: 'grass' } }, { type: { name: 'poison' } }],
@@ -27,7 +26,8 @@ export const handlers = [
         ],
         height: 7,
         weight: 69,
-      })
+      },
+      { status: 200 }
     );
   }),
-]; 
+];
