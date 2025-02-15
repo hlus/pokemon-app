@@ -17,7 +17,7 @@ export const AbilityCell: React.FC<Props> = ({ ability }) => (
       <AttributeCard>
         <AbilityHeader>
           <AttributeTitle variant="h6">{ability.name}</AttributeTitle>
-          <AbilityInfoIcon color="primary" />
+          <AbilityInfoIcon data-testid="AbilityInfoIcon" color="primary" />
         </AbilityHeader>
       </AttributeCard>
     </Tooltip>

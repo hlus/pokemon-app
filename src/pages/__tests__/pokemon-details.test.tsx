@@ -111,19 +111,19 @@ describe('PokemonDetails', () => {
     expect(mockNavigate).toHaveBeenCalledWith(-1);
   });
 
-  // it('displays pokemon abilities correctly', async () => {
-  //   renderDetails();
+  it('displays pokemon abilities correctly', async () => {
+    renderDetails();
 
-  //   const abilityName = await screen.findByText('overgrow');
-  //   expect(abilityName).toBeInTheDocument();
+    const abilityName = await screen.findByText('overgrow');
+    expect(abilityName).toBeInTheDocument();
 
-  //   const helpIcon = screen.getByTestId('HelpOutlineIcon');
+    const helpIcon = screen.getByTestId('AbilityInfoIcon');
 
-  //   fireEvent.mouseOver(helpIcon);
+    fireEvent.mouseOver(helpIcon);
 
-  //   const tooltipText = await screen.findByText('Powers up Grass-type moves when the Pokémon is in trouble.');
-  //   expect(tooltipText).toBeInTheDocument();
-  // });
+    const tooltipText = await screen.findByText('Powers up Grass-type moves when the Pokémon is in trouble.');
+    expect(tooltipText).toBeInTheDocument();
+  });
 
   it('displays pokemon physical attributes', async () => {
     renderDetails();
