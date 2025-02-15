@@ -22,6 +22,8 @@ export const PokemonList: React.FC = () => {
 
   const renderPokemonCard = React.useCallback((pokemon: Pokemon) => <PokemonCard key={pokemon.id} pokemon={pokemon} />, []);
 
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(event.target.value);
+
   return (
     <Root>
       <StyledContainer maxWidth="lg">
@@ -31,7 +33,7 @@ export const PokemonList: React.FC = () => {
             label="Search Pokémon"
             variant="outlined"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={handleSearch}
             placeholder="Enter pokemon name..."
           />
         </SearchBar>
