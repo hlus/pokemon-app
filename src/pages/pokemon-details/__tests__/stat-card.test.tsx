@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
-import { StatCard } from '../stat-card';
+import { StatCard } from '../stat-card.component';
 
 describe('StatCard', () => {
   const renderStatCard = (stat: string, value: number) => {

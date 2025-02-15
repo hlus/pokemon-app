@@ -5,8 +5,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Container, Typography, IconButton, CircularProgress } from '@mui/material';
 
+import { StatCard } from './stat-card.component';
 import { getTypeColor } from '../../utils/colors';
-import { StatCard } from '../../components/stat-card';
 import { AbilityCell } from './ability-cell.component';
 import { PokemonImage } from './pokemon-image.component';
 import { AttributeCell } from './attribute-cell.component';
