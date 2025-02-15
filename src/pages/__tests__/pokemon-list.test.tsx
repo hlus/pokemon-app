@@ -5,7 +5,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '@testing-library/react';
 
-import { PokemonSearch } from '../PokemonSearch.page';
+import { PokemonList } from '../pokemon-list/pokemon-list.page';
 import { pokemonApi } from '../../services/pokemon.api';
 
 const createMockStore = () =>
@@ -21,7 +21,7 @@ describe('PokemonSearch', () => {
     render(
       <Provider store={createMockStore()}>
         <BrowserRouter>
-          <PokemonSearch />
+          <PokemonList />
         </BrowserRouter>
       </Provider>
     );

@@ -1,7 +1,8 @@
+import { BrowserRouter } from 'react-router-dom';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-import { PokemonCard } from '../PokemonCard';
+
+import { PokemonCard } from '../pokemon-card';
 
 const mockNavigate = vi.fn();
 
@@ -55,4 +56,4 @@ describe('PokemonCard', () => {
     const card = screen.getByTestId('pokemon-card-bulbasaur');
     expect(card).toHaveStyle({ border: '2px solid #30a7d7' });
   });
-}); 
+});

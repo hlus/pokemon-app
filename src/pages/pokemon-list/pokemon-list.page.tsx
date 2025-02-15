@@ -3,12 +3,12 @@ import Grid from '@mui/material/Grid2';
 import { styled } from '@mui/material/styles';
 import { Box, Container, TextField, Typography, CircularProgress } from '@mui/material';
 
-import { Pokemon } from '../models/pokemon.model';
-import { useDebounce } from '../hooks/useDebounce';
-import { PokemonCard } from '../components/PokemonCard';
-import { useGetPokemonListQuery } from '../services/pokemon.api';
+import { Pokemon } from '../../models/pokemon.model';
+import { useDebounce } from '../../hooks/useDebounce';
+import { PokemonCard } from '../../components/pokemon-card';
+import { useGetPokemonListQuery } from '../../services/pokemon.api';
 
-export const PokemonSearch: React.FC = () => {
+export const PokemonList: React.FC = () => {
   const [searchTerm, setSearchTerm] = React.useState('');
 
   const debouncedSearch = useDebounce(searchTerm);

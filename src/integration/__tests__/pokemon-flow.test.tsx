@@ -10,8 +10,8 @@ import mockedIvysaurDetails from './mock/ivysaur-details.json';
 
 import { Pokemon } from '../../models/pokemon.model';
 import { pokemonApi } from '../../services/pokemon.api';
-import { PokemonSearch } from '../../pages/PokemonSearch.page';
-import { PokemonDetails } from '../../pages/PokemonDetails.page';
+import { PokemonList } from '../../pages/pokemon-list/pokemon-list.page';
+import { PokemonDetails } from '../../pages/pokemon-details/pokemon-details.page';
 import { PokemonDetails as PokemonDetailsModel } from '../../models/pokemon-details.model';
 
 describe('Pokemon Search to Details Flow', () => {
@@ -41,7 +41,7 @@ describe('Pokemon Search to Details Flow', () => {
       <Provider store={store}>
         <MemoryRouter initialEntries={['/']}>
           <Routes>
-            <Route path="/" element={<PokemonSearch />} />
+            <Route path="/" element={<PokemonList />} />
             <Route path="/pokemon/:name" element={<PokemonDetails />} />
           </Routes>
         </MemoryRouter>
@@ -75,7 +75,7 @@ describe('Pokemon Search to Details Flow', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <PokemonSearch />
+          <PokemonList />
         </MemoryRouter>
       </Provider>
     );
@@ -85,7 +85,7 @@ describe('Pokemon Search to Details Flow', () => {
 
     fireEvent.change(searchInput, { target: { value: 'ivy' } });
     await screen.findByText('ivysaur');
-    
+
     await waitFor(() => {
       expect(screen.queryByText('bulbasaur')).not.toBeInTheDocument();
     });

@@ -28,10 +28,10 @@ export const handlers = [
       abilities: [
         {
           name: 'overgrow',
-          text: 'Powers up Grass-type moves when the Pokémon is in trouble.'
-        }
+          text: 'Powers up Grass-type moves when the Pokémon is in trouble.',
+        },
       ],
-      evolution: []
+      evolution: [],
     });
   }),
 ];

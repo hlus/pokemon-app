@@ -4,15 +4,15 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { theme } from './theme/theme';
 import { store } from './store/store';
-import { PokemonSearch } from './pages/PokemonSearch.page';
-import { PokemonDetails } from './pages/PokemonDetails.page';
+import { PokemonList } from './pages/pokemon-list/pokemon-list.page';
+import { PokemonDetails } from './pages/pokemon-details/pokemon-details.page';
 
 const App: React.FC = () => (
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<PokemonSearch />} />
+          <Route path="/" element={<PokemonList />} />
           <Route path="/pokemon/:name" element={<PokemonDetails />} />
         </Routes>
       </BrowserRouter>
