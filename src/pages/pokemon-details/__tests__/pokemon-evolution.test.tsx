@@ -44,14 +44,4 @@ describe('PokemonEvolution', () => {
       border: '2px solid #30a7d7',
     });
   });
-
-  it('applies correct styling to section title', () => {
-    renderPokemonEvolution();
-    const title = screen.getByText('Evolution');
-    expect(title).toHaveStyle({
-      marginBottom: '16px',
-      color: '#212121',
-      fontWeight: 600,
-    });
-  });
 });

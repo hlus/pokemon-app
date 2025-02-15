@@ -16,8 +16,8 @@ const createMockStore = () =>
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(pokemonApi.middleware),
   });
 
-describe('PokemonSearch', () => {
-  const renderSearch = () => {
+describe('PokemonList', () => {
+  const renderPokemonList = () => {
     render(
       <Provider store={createMockStore()}>
         <BrowserRouter>
@@ -28,12 +28,12 @@ describe('PokemonSearch', () => {
   };
 
   it('renders search input', () => {
-    renderSearch();
+    renderPokemonList();
     expect(screen.getByPlaceholderText('Enter pokemon name...')).toBeInTheDocument();
   });
 
   it('filters pokemon list based on search input', async () => {
-    renderSearch();
+    renderPokemonList();
     const searchInput = screen.getByPlaceholderText('Enter pokemon name...');
 
     await userEvent.type(searchInput, 'bulb');
@@ -45,7 +45,7 @@ describe('PokemonSearch', () => {
   });
 
   it('shows loading state while fetching data', () => {
-    renderSearch();
+    renderPokemonList();
     expect(screen.getByRole('progressbar')).toBeInTheDocument();
   });
 });
