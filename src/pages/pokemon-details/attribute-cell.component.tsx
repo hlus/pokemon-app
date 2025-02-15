@@ -1,7 +1,7 @@
 import React from 'react';
-import { Paper, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { styled } from '@mui/material/styles';
+import { Paper, Typography } from '@mui/material';
 
 interface Props {
   attribute: string;

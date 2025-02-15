@@ -18,11 +18,7 @@ export const PokemonCard: React.FC<Props> = ({ pokemon, showBorder }) => {
 
   return (
     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-      <PokemonCardContainer 
-        data-testid={`pokemon-card-${pokemon.name}`} 
-        showBorder={showBorder} 
-        onClick={onCardClick}
-      >
+      <PokemonCardContainer data-testid={`pokemon-card-${pokemon.name}`} showBorder={showBorder} onClick={onCardClick}>
         <PokemonImage component="img" image={pokemon.image} alt={pokemon.name} />
         <CardContent>
           <PokemonName gutterBottom variant="h6" component="div">

@@ -5,8 +5,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '@testing-library/react';
 
-import { PokemonList } from '../pokemon-list/pokemon-list.page';
-import { pokemonApi } from '../../services/pokemon.api';
+import { PokemonList } from '../pokemon-list.page';
+import { pokemonApi } from '../../../services/pokemon.api';
 
 const createMockStore = () =>
   configureStore({

@@ -1,11 +1,11 @@
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
 import { BrowserRouter } from 'react-router-dom';
+import { configureStore } from '@reduxjs/toolkit';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import { PokemonDetails } from '../pokemon-details/pokemon-details.page';
-import { pokemonApi } from '../../services/pokemon.api';
+import { PokemonDetails } from '../pokemon-details.page';
+import { pokemonApi } from '../../../services/pokemon.api';
 
 const mockNavigate = vi.fn();
 

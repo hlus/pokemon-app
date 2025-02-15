@@ -5,8 +5,8 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 import mockedList from './mock/pokemon-list.json';
-import mockedBulbasaurDetails from './mock/bulbasaur-details.json';
 import mockedIvysaurDetails from './mock/ivysaur-details.json';
+import mockedBulbasaurDetails from './mock/bulbasaur-details.json';
 
 import { Pokemon } from '../../models/pokemon.model';
 import { pokemonApi } from '../../services/pokemon.api';
