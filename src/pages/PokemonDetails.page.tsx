@@ -53,13 +53,26 @@ export const PokemonDetails: React.FC = () => {
 
           <Grid container spacing={4}>
             <Grid size={{ xs: 12, md: 6 }}>
-              <ImageWrapper>
-                <img src={pokemon.image} alt={pokemon.name} />
-              </ImageWrapper>
+              <PokemonImageSection>
+                <PokemonImageCard>
+                  <PokemonImageWrapper>
+                    <PokemonImage src={pokemon.image} alt={pokemon.name} />
+                  </PokemonImageWrapper>
+                </PokemonImageCard>
+
+                {pokemon.evolution && pokemon.evolution.length > 0 && (
+                  <EvolutionSection>
+                    <SectionTitle variant="h6">Evolution</SectionTitle>
+                    <Grid container spacing={2}>
+                      {pokemon.evolution.map(renderPokemonCard)}
+                    </Grid>
+                  </EvolutionSection>
+                )}
+              </PokemonImageSection>
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
-              <InfoSection>
+              <PokemonInfoSection>
                 <PokemonName variant="h4" color="text.primary">
                   {pokemon.name}
                 </PokemonName>
@@ -72,20 +85,34 @@ export const PokemonDetails: React.FC = () => {
                   <TypesWrapper>{pokemon.types.map(renderType)}</TypesWrapper>
                 </TypesSection>
 
-                <AbilityInfoCard>
-                  <AbilityTitle variant="h6">Height</AbilityTitle>
-                  <AbilityValue>{pokemon.height} m</AbilityValue>
-                  <AbilityTitle variant="h6">Weight</AbilityTitle>
-                  <AbilityValue>{pokemon.weight} kg</AbilityValue>
+                <AttributesGrid container spacing={2}>
+                  <AttributeGridItem size={{ xs: 6 }}>
+                    <AttributeCard>
+                      <AttributeTitle variant="h6">Height</AttributeTitle>
+                      <AttributeValue>{pokemon.height} m</AttributeValue>
+                    </AttributeCard>
+                  </AttributeGridItem>
+                  
+                  <AttributeGridItem size={{ xs: 6 }}>
+                    <AttributeCard>
+                      <AttributeTitle variant="h6">Weight</AttributeTitle>
+                      <AttributeValue>{pokemon.weight} kg</AttributeValue>
+                    </AttributeCard>
+                  </AttributeGridItem>
+
                   {pokemon.abilities.map((ability) => (
-                    <AbilityInfo key={ability.name}>
-                      <AbilityTitle variant="h6">{ability.name}</AbilityTitle>
-                      <Tooltip title={ability.text} arrow>
-                        <QuestionMarkIcon sx={{ color: 'white' }} />
-                      </Tooltip>
-                    </AbilityInfo>
+                    <AttributeGridItem size={{ xs: 6 }} key={ability.name}>
+                      <AttributeCard>
+                        <AbilityHeader>
+                          <AttributeTitle variant="h6">{ability.name}</AttributeTitle>
+                          <Tooltip title={ability.text} arrow>
+                            <AbilityInfoIcon color="primary" />
+                          </Tooltip>
+                        </AbilityHeader>
+                      </AttributeCard>
+                    </AttributeGridItem>
                   ))}
-                </AbilityInfoCard>
+                </AttributesGrid>
 
                 {pokemon.stats && (
                   <StatsSection>
@@ -95,16 +122,7 @@ export const PokemonDetails: React.FC = () => {
                     </Grid>
                   </StatsSection>
                 )}
-
-                {pokemon.evolution && pokemon.evolution.length > 0 && (
-                  <StatsSection>
-                    <SectionTitle variant="h6">Evolution</SectionTitle>
-                    <Grid container spacing={2}>
-                      {pokemon.evolution.map(renderPokemonCard)}
-                    </Grid>
-                  </StatsSection>
-                )}
-              </InfoSection>
+              </PokemonInfoSection>
             </Grid>
           </Grid>
         </ContentBox>
@@ -133,32 +151,41 @@ const DetailsContainer = styled(Container)({
   },
 });
 
-const ImageWrapper = styled(Paper)({
-  padding: 32,
-  height: '100%',
-  '& img': {
-    width: '100%',
-    height: 'auto',
-    maxHeight: 400,
-    objectFit: 'contain',
-  },
-});
-
-const InfoSection = styled(Box)({
-  marginBottom: 32,
-});
-
-const TypesWrapper = styled(Box)({
-  display: 'flex',
-  gap: 8,
-});
-
 const ContentBox = styled(Box)({
   padding: '32px 0',
 });
 
 const BackButton = styled(IconButton)({
   marginBottom: 16,
+});
+
+const PokemonImageCard = styled(Paper)({
+  padding: 32,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100%',
+  backgroundColor: '#f5f5f5',
+});
+
+const PokemonImageWrapper = styled(Box)({
+  width: '100%',
+  height: 0,
+  paddingBottom: '100%',
+  position: 'relative',
+});
+
+const PokemonImage = styled('img')({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  objectFit: 'contain',
+});
+
+const PokemonInfoSection = styled(Box)({
+  marginBottom: 32,
 });
 
 const PokemonName = styled(Typography)({
@@ -174,12 +201,58 @@ const TypesSection = styled(Box)({
   marginBottom: 32,
 });
 
+const TypesWrapper = styled(Box)({
+  display: 'flex',
+  gap: 8,
+});
+
+const AttributesGrid = styled(Grid)({
+  marginBottom: 32,
+});
+
+const AttributeGridItem = styled(Grid)({
+  display: 'flex',
+});
+
+const AttributeCard = styled(Paper)({
+  padding: 16,
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: 8,
+  backgroundColor: '#ffffff',
+  boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+  transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+  '&:hover': {
+    transform: 'translateY(-2px)',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+  },
+});
+
+const AttributeTitle = styled(Typography)({
+  color: '#30a7d7',
+  textTransform: 'capitalize',
+  fontWeight: 600,
+});
+
+const AttributeValue = styled(Typography)({
+  color: '#212121',
+  fontWeight: 500,
+});
+
 const StatsSection = styled(Box)({
+  marginBottom: 32,
+});
+
+const EvolutionSection = styled(Box)({
   marginBottom: 0,
 });
 
 const SectionTitle = styled(Typography)({
   marginBottom: 16,
+  color: '#212121',
+  fontWeight: 600,
 });
 
 const TypeBadge = styled(Typography)<{ $bgColor: string }>(({ $bgColor }) => ({
@@ -190,21 +263,26 @@ const TypeBadge = styled(Typography)<{ $bgColor: string }>(({ $bgColor }) => ({
   textTransform: 'capitalize',
 }));
 
-const AbilityInfoCard = styled(Paper)({
-  backgroundColor: '#30a7d7',
-  borderRadius: 8,
-  padding: 16,
+const PokemonImageSection = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 32,
 });
 
-const AbilityTitle = styled(Typography)({
-  color: 'white',
-});
-const AbilityValue = styled(Typography)({
-  color: '#212121',
-});
-
-const AbilityInfo = styled(Box)({
+const AbilityHeader = styled(Box)({
   display: 'flex',
   alignItems: 'center',
   gap: 8,
+  width: '100%',
+  justifyContent: 'center',
+});
+
+const AbilityInfoIcon = styled(QuestionMarkIcon)({
+  fontSize: 20,
+  cursor: 'help',
+  color: '#30a7d7',
+  transition: 'color 0.2s ease-in-out',
+  '&:hover': {
+    color: '#1976d2',
+  },
 });
