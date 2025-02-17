@@ -9,12 +9,15 @@ import { parsePokemonDTO, Pokemon } from '../models/pokemon.model';
 import { PokemonAbilitiesDTO } from '../models/pokemon-abilities.dto';
 import { parsePokemonDetailsDto, PokemonDetails } from '../models/pokemon-details.model';
 
+const BASE_URL = 'https://pokeapi.co/api/v2/';
+const LIMIT = 153;
+
 export const pokemonApi = createApi({
   reducerPath: 'pokemonApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://pokeapi.co/api/v2/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
     getPokemonList: builder.query<Pokemon[], void>({
-      query: () => 'pokemon?limit=153',
+      query: () => ({ url: 'pokemon', params: { limit: LIMIT } }),
       transformResponse: (response: PokemonListDTO) => response.results.map(parsePokemonDTO),
     }),
     getPokemonDetails: builder.query<PokemonDetails, string>({

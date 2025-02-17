@@ -1,18 +1,34 @@
 import React from 'react';
 import Grid from '@mui/material/Grid2';
-import { styled } from '@mui/material/styles';
+import { CircularProgress } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Container, Typography, IconButton, CircularProgress } from '@mui/material';
 
-import { StatCard } from './stat-card.component';
 import { getTypeColor } from '../../utils/colors';
-import { AbilityCell } from './ability-cell.component';
-import { PokemonImage } from './pokemon-image.component';
-import { AttributeCell } from './attribute-cell.component';
 import { Ability } from '../../models/pokemon-details.model';
-import { PokemonEvolution } from './pokemon-evolution.component';
+import { StatCard } from '../../components/stat-card.component';
+import { AbilityCell } from '../../components/ability-cell.component';
 import { useGetPokemonDetailsQuery } from '../../services/pokemon.api';
+import { PokemonImage } from '../../components/pokemon-image.component';
+import { AttributeCell } from '../../components/attribute-cell.component';
+import { PokemonEvolution } from '../../components/pokemon-evolution.component';
+import {
+  BackButton,
+  PokemonImageSection,
+  TypeBadge,
+  PokemonNumber,
+  PokemonName,
+  TypesSection,
+  SectionTitle,
+  TypesWrapper,
+  AttributesGrid,
+  StatsSection,
+  DetailsWrapper,
+  LoadingWrapper,
+  DetailsContainer,
+  ContentBox,
+  PokemonInfoSection,
+} from './pokemon-details.styles';
 
 export const PokemonDetails: React.FC = () => {
   const { name } = useParams<{ name: string }>();
@@ -97,81 +113,3 @@ export const PokemonDetails: React.FC = () => {
     </DetailsWrapper>
   );
 };
-
-const DetailsWrapper = styled(Box)({
-  backgroundColor: '#ffffff',
-  flex: 1,
-  width: '100%',
-  paddingBottom: 64,
-});
-
-const LoadingWrapper = styled(Box)({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  minHeight: '100vh',
-});
-
-const DetailsContainer = styled(Container)({
-  '& > div': {
-    padding: '32px 0',
-  },
-});
-
-const ContentBox = styled(Box)({
-  padding: '32px 0',
-});
-
-const BackButton = styled(IconButton)({
-  marginBottom: 16,
-});
-
-const PokemonInfoSection = styled(Box)({
-  marginBottom: 32,
-});
-
-const PokemonName = styled(Typography)({
-  textTransform: 'capitalize',
-  marginBottom: 16,
-});
-
-const PokemonNumber = styled(Typography)({
-  marginBottom: 24,
-});
-
-const TypesSection = styled(Box)({
-  marginBottom: 32,
-});
-
-const TypesWrapper = styled(Box)({
-  display: 'flex',
-  gap: 8,
-});
-
-const AttributesGrid = styled(Grid)({
-  marginBottom: 32,
-});
-
-const StatsSection = styled(Box)({
-  marginBottom: 32,
-});
-
-const SectionTitle = styled(Typography)({
-  marginBottom: 16,
-  color: '#212121',
-  fontWeight: 600,
-});
-
-const TypeBadge = styled(Typography)<{ $bgColor: string }>(({ $bgColor }) => ({
-  backgroundColor: $bgColor,
-  color: 'white',
-  padding: '8px 16px',
-  borderRadius: 4,
-  textTransform: 'capitalize',
-}));
-
-const PokemonImageSection = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 32,
-});

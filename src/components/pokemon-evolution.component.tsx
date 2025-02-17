@@ -3,9 +3,9 @@ import Grid from '@mui/material/Grid2';
 import { styled } from '@mui/material/styles';
 import { Box, Typography } from '@mui/material';
 
-import { Pokemon } from '../../models/pokemon.model';
-import { PokemonCard } from '../../components/pokemon-card';
-import { PokemonDetails } from '../../models/pokemon-details.model';
+import { Pokemon } from '../models/pokemon.model';
+import { PokemonCard } from './pokemon-card';
+import { PokemonDetails } from '../models/pokemon-details.model';
 
 interface Props {
   pokemon: PokemonDetails;
