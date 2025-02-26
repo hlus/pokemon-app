@@ -1,12 +1,11 @@
 import React from 'react';
-import Grid from '@mui/material/Grid2';
-import { styled } from '@mui/material/styles';
-import { Box, Container, TextField, Typography, CircularProgress } from '@mui/material';
+import { TextField, Typography, CircularProgress } from '@mui/material';
 
 import { Pokemon } from '../../models/pokemon.model';
 import { useDebounce } from '../../hooks/useDebounce';
 import { PokemonCard } from '../../components/pokemon-card';
 import { useGetPokemonListQuery } from '../../services/pokemon.api';
+import { EmptyStateContainer, GridListContainer, LoadingContainer, Root, SearchBar, StyledContainer } from './pokemon-list.styles';
 
 export const PokemonList: React.FC = () => {
   const [searchTerm, setSearchTerm] = React.useState('');
@@ -58,35 +57,3 @@ export const PokemonList: React.FC = () => {
     </Root>
   );
 };
-
-const Root = styled(Box)({
-  backgroundColor: '#ffffff',
-  flex: 1,
-  width: '100%',
-});
-
-const StyledContainer = styled(Container)({
-  paddingTop: 32,
-  paddingBottom: 64,
-});
-
-const SearchBar = styled(Box)({
-  position: 'sticky',
-  top: 0,
-  backgroundColor: '#ffffff',
-  zIndex: 1,
-});
-
-const LoadingContainer = styled(Box)({
-  display: 'flex',
-  justifyContent: 'center',
-  padding: '64px 0',
-});
-
-const GridListContainer = styled(Grid)({ paddingTop: 16 });
-
-const EmptyStateContainer = styled(Box)({
-  width: '100%',
-  textAlign: 'center',
-  padding: '64px 0',
-});
